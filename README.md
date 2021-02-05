@@ -1,4 +1,5 @@
-# Team 8 - Alkemy Ong Server
+# Server Base - Proyecto ONG
+
 
 ## Envinroment setup
 
