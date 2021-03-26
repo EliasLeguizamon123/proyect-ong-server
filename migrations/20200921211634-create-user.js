@@ -32,15 +32,6 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL'
       },
-      organizationId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Organizations',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
-      },
       deletedAt: {
         type: Sequelize.DATE
       },

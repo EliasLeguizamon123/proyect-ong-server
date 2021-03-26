@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.belongsTo(models.Role, {as: 'role'});
-      User.belongsTo(models.Organization, {as: 'organization'})
     }
   };
   User.init({
@@ -21,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
     image: DataTypes.STRING,
     password: DataTypes.STRING,
     roleId: DataTypes.INTEGER,
-    organizationId: DataTypes.INTEGER,
     deletedAt: DataTypes.DATE
   }, {
     sequelize,
