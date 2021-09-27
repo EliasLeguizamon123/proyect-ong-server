@@ -1,9 +1,29 @@
 {
   "name": "ong-server",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "start:dev": "nodemon ./bin/www",
+    "lint": "eslint *.js",
+    "lint:fix": "eslint *.js --fix",
+    "test": "jest --verbose --silent --detectOpenHandles"
+  },
+  "engines": {
+    "node": ">=0.14"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --quiet --fix"
+    ],
+    "*.{json,md,html}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -18,6 +38,18 @@
     "sequelize": "^6.3.5"
   },
   "devDependencies": {
-    "sequelize-cli": "^6.2.0"
+    "eslint": "^7.31.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "husky": "^7.0.1",
+    "jest": "^27.0.6",
+    "lint-staged": "^11.1.1",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.3.2",
+    "sequelize-cli": "^6.2.0",
+    "supertest": "^6.1.6"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
