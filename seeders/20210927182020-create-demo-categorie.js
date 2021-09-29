@@ -6,7 +6,7 @@ module.exports = {
       'Categories',
       [
         {
-          name: 'Demo Categorie',
+          name: 'Demo Category',
           description: 'Phasellus scelerisque sed augue non hendrerit.',
           createdAt: new Date(),
           updatedAt: new Date(),
