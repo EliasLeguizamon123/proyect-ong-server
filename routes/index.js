@@ -1,12 +1,22 @@
-var express = require('express');
-var router = express.Router();
-const newsRoutes = require('./news')
+const express = require('express');
+const router = express.Router();
+const newsRouter = require('./news');
+const usersRouter = require('./users');
+const testimonialsRouter = require('./testimonials');
+const categoriesRouter = require('./categories');
+const membersRouter = require('./members');
+const contactsRouter = require('./contacts');
 
-/* News routes */
-router.use("/news", newsRoutes);
+/* Routes */
+router.use('/news', newsRouter);
+router.use('/users', usersRouter);
+router.use('/testimonials', testimonialsRouter);
+router.use('/categories', categoriesRouter);
+router.use('/members', membersRouter);
+router.use('/contacts', contactsRouter);
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
