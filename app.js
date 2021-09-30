@@ -1,3 +1,7 @@
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const categoriesRouter = require('./routes/categories');
+const activitiesRouter = require('./routes/activities');
 const createError = require('http-errors')
 const express = require('express')
 const morgan = require('morgan')
@@ -35,10 +39,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 // app.use('/categories', categoriesRouter);
-app.use('./testimonials', testimonialsRouter)
-app.use('/categories', categoriesRouter)
-app.use('/members', membersRouter)
-app.use('/contacts', contactsRouter)
+app.use('./testimonials', testimonialsRouter);
+app.use('/categories', categoriesRouter);
+app.use('/activities', activitiesRouter);
+app.use("/members", membersRouter)
+app.use('/contacts', contactsRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
