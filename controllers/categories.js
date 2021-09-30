@@ -61,8 +61,31 @@ const updateCategory = async (req, res) => {
   }
 };
 
+const deleteCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const category = await Category.findByPk(id);
+    if (!category) {
+      return res.status(404).json({
+        ok: false,
+        msg: `Category with id: ${id} not found`,
+      });
+    }
+    await Category.destroy({ where: { id } });
+    return res.status(200).json({
+      ok: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      msg: error.message,
+    });
+  }
+};
+
 module.exports = {
   getCategories,
   postCategory,
   updateCategory,
+  deleteCategory,
 };
