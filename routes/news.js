@@ -1,8 +1,11 @@
 const { Router } = require('express');
+
 const router = Router();
 
-const { postEntries } = require('../controllers/news.js');
 
+const { deleteEntries, postEntries } = require('../controllers/news.js');
+
+router.delete('/', deleteEntries);
 router.post('/', postEntries);
 
 module.exports = router;
