@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = {
-
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Activities', [{
       name:'Un día más feliz para los niños',
