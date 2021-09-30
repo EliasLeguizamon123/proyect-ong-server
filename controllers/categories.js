@@ -22,6 +22,24 @@ const getCategories = async (req, res) => {
   }
 };
 
+const postCategory = async (req, res) => {
+  try {
+    const newCategory = { ...req.body };
+    const category = await Category.create(newCategory);
+    res.status(200).json({
+      ok: true,
+      data: category,
+    });
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: 'Unknown error, contact admin',
+      error,
+    });
+  }
+};
+
 module.exports = {
   getCategories,
+  postCategory,
 };
