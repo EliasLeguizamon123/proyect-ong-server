@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+var morgan = require('morgan')
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -14,6 +15,9 @@ const membersRouter = require("./routes/members")
 const contactsRouter = require('./routes/contacts');
 
 const app = express();
+
+// middlewares
+app.use(morgan('combined'))
 app.use(cors());
 
 // view engine setup
@@ -26,6 +30,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// routes
+// TODO: we want to move to a individual file for routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 // app.use('/categories', categoriesRouter);
