@@ -1,5 +1,21 @@
 const { Entry } = require('../models/index');
 
+const getNewById = async (req, res) => {
+    const { id } = req.params
+    try {
+        const entry = await Entry.findByPk(id);
+        res.status(200).json({
+            ok: true,
+            data: entry,
+        })
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: error.message,
+        });
+    }
+}
+
 const deleteEntries = async (req, res) => {
     const { id } = req.params;
     try {
@@ -41,5 +57,6 @@ const postEntries = async (req, res) => {
 
 module.exports = {
     postEntries,
+    getNewById,
     deleteEntries,
 };
