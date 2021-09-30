@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const {getMembers} = require("../controllers/members");
+const {getMembers, deleteMember} = require("../controllers/members");
 
 router.get("/", getMembers);
+router.delete("/:id", deleteMember);
 
 module.exports = router;
