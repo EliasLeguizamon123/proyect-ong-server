@@ -7,7 +7,12 @@ const router = Router();
 /*
 Controllers
 */
-const { getCategories, postCategory, updateCategory } = require('../controllers/categories');
+const {
+  getCategories,
+  postCategory,
+  updateCategory,
+  deleteCategory,
+} = require('../controllers/categories');
 
 // GET /categories
 router.get('/', getCategories);
@@ -16,7 +21,9 @@ router.get('/', getCategories);
 router.post('/', postCategory);
 
 // PUT /categories/id
-
 router.put('/:id', updateCategory);
+
+// DELETE /categories/id
+router.delete('/:id', deleteCategory);
 
 module.exports = router;
