@@ -16,8 +16,7 @@ const getCategories = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       ok: false,
-      msg: 'Unknown error, contact admin',
-      error,
+      msg: error.message,
     });
   }
 };
@@ -33,8 +32,31 @@ const postCategory = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       ok: false,
-      msg: 'Unknown error, contact admin',
-      error,
+      msg: error.message,
+    });
+  }
+};
+
+const updateCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+    const category = await Category.findByPk(id);
+    if (!category) {
+      return res.status(404).json({
+        ok: false,
+        msg: `Category with id: ${id} not found`,
+      });
+    }
+    const updatedCategory = await Category.update(data, { where: { id } });
+    return res.status(200).json({
+      data: updatedCategory,
+      ok: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      msg: error.message,
     });
   }
 };
@@ -42,4 +64,5 @@ const postCategory = async (req, res) => {
 module.exports = {
   getCategories,
   postCategory,
+  updateCategory,
 };
