@@ -1,15 +1,16 @@
-/* 
-Imports 
+/*
+Imports
 */
-const { Router } = require('express');
-const router = Router();
+const { Router } = require('express')
+
+const router = Router()
 
 /*
 Controllers
 */
-const { getContacts } = require('../controllers/contacts');
+const { getContacts } = require('../controllers/contacts')
 
-//Route GET / contacts
-router.get('/', getContacts);
+// Route GET / contacts
+router.get('/', getContacts)
 
-module.exports = router;
+module.exports = router
