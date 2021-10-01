@@ -18,10 +18,6 @@ pipelines:
         - step:
             name: Code linting
             script:
-              - pipe: atlassian/slack-notify:2.0.0
-                variables:
-                  WEBHOOK_URL: $WEBHOOK_URL
-                  MESSAGE: '"[${ENVIRONMENT_NAME}] build has been validated with status $build_status"'
               - npm install eslint
               - npm run lint:js
             caches:
