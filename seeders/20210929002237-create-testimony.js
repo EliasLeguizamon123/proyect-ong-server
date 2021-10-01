@@ -5,7 +5,9 @@ module.exports = {
       await queryInterface.bulkInsert('Testimonials', [{
         name: 'Demo testimonials',
         image: 'https://i.blogs.es/594843/chrome/450_1000.jpg',
-        content: 'Phasellus scelerisque sed augue non hendrerit.'
+        content: 'Phasellus scelerisque sed augue non hendrerit.',
+        createdAt: new Date(),
+        updatedAt: new Date()
       }], {});
     
   },
