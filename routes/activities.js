@@ -15,4 +15,7 @@ Routes to handle activities
 // POST /activities
 router.post('/', validate(schemas.add), activityController.add);
 
+// GET /activities
+router.get('/', activityController.getAll);
+
 module.exports = router;

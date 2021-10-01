@@ -26,3 +26,24 @@ exports.add = async (req, res) => {
     });
   }
 };
+
+
+
+exports.getAll = async (req, res) => {
+    try {
+
+      const activities = await Activity.findAll({});
+  
+      // Send success returning the recently created activity
+      res.status(200).json({
+        ok: true,
+        data: activities,
+      });
+    } catch (error) {
+      res.status(500).json({
+        ok: false,
+        msg: error.message,
+      });
+    }
+  };
+  

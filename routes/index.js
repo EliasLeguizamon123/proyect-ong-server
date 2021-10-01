@@ -6,6 +6,7 @@ const testimonialsRouter = require('./testimonials');
 const categoriesRouter = require('./categories');
 const membersRouter = require('./members');
 const contactsRouter = require('./contacts');
+const activitiesRouter = require('./activities')
 
 /* Routes */
 router.use('/news', newsRouter);
@@ -14,6 +15,7 @@ router.use('/testimonials', testimonialsRouter);
 router.use('/categories', categoriesRouter);
 router.use('/members', membersRouter);
 router.use('/contacts', contactsRouter);
+router.use('/activities', activitiesRouter);
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
