@@ -4,3 +4,5 @@ node_modules/**
 seeders/
 models/
 migrations/
+
+*.test.js
