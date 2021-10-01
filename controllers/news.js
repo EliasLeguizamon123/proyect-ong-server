@@ -1,5 +1,27 @@
 const { Entry } = require('../models/index');
 
+const getEntries = async (req,res) => {
+    try{
+        const newsList = await Entry.findAll({
+            where: {type: 'news'},
+            attributes: ['name', 'image', 'createdAt']
+        });
+        return res.status(200).json({
+            ok: true, 
+            data: newsList
+        });
+    }
+    catch(error){
+        return res.status(500).json({
+            ok: false,
+            msg: error.message
+        })
+    }
+
+}
+
+
+
 const getNewById = async (req, res) => {
     const { id } = req.params
     try {
@@ -34,7 +56,7 @@ const deleteEntries = async (req, res) => {
             msg: error.message,
         });
     }
-}
+};
 
 const postEntries = async (req, res) => {
     try {
@@ -59,4 +81,5 @@ module.exports = {
     postEntries,
     getNewById,
     deleteEntries,
+    getEntries
 };

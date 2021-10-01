@@ -15,11 +15,10 @@ const postTestimonial = async (req, res) =>{
             data: testimonial
         })
     }
-    catch(err){
+    catch(error){
         res.status(500).json({
             ok: false,
-            msg: 'Unknown error, contact admin',
-            error,
+            msg: error.message
         });
     }
 };
