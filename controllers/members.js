@@ -9,6 +9,14 @@ const membersController = {
             return res.status(500).json({ok: false, msg: err.message});
         }
     },
+    createMember : async (req, res) => {
+        try{
+            let newUser = await Member.create(req.body);
+            return res.status(201).json({ok: true, msg: `Member ${newUser.name} created successfully`, data: newUser});
+        }catch(err){
+            return res.status(500).json({ok: false, msg: err.message});
+        }
+    },
     deleteMember: async (req, res) => {
         const {id} = req.params;
         let memberExists = await Member.findByPk(id);
