@@ -1,12 +1,14 @@
-const { Router } = require('express');
+const { Router } = require('express')
 
-const router = Router();
+const router = Router()
 
-const { deleteEntries, postEntries, getNewById, getEntries } = require('../controllers/news.js');
+const {
+  deleteEntries, postEntries, getNewById, getEntries
+} = require('../controllers/news')
 
-router.get('/', getEntries);
-router.get('/:id', getNewById);
-router.delete('/', deleteEntries);
-router.post('/', postEntries);
+router.get('/', getEntries)
+router.get('/:id', getNewById)
+router.delete('/:id', deleteEntries)
+router.post('/', postEntries)
 
-module.exports = router;
+module.exports = router

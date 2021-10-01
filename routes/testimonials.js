@@ -1,14 +1,15 @@
-/* 
-Imports 
+/*
+Imports
 */
-const { Router } = require('express');
-const router = Router();
+const { Router } = require('express')
+
+const router = Router()
 /*
 Controllers
 */
-const { postTestimonial } = require('../controllers/testimonials');
+const { postTestimonial } = require('../controllers/testimonials')
 
 // POST /testimonials
-router.post('/', postTestimonial);
+router.post('/', postTestimonial)
 
-module.exports = router;
+module.exports = router

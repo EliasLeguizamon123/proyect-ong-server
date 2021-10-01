@@ -1,25 +1,24 @@
 /*
 Imports
 */
-const { Contact } = require('../models/index');
+const { Contact } = require('../models/index')
 
-/* 
+/*
 Controllers contacts
 */
 const getContacts = async (req, res) => {
-    try {
-        const contactList = await Contact.findAll({ attributes: ['name', 'phone', 'email', 'message'] });
-        res.status(200).json({
-            ok: true,
-            data: contactList
-        })
-    }
-    catch (error) {
-        res.status(500).json({
-            ok: false,
-            msg: error.message
-        });
-    }
-};
+  try {
+    const contactList = await Contact.findAll({ attributes: ['name', 'phone', 'email', 'message'] })
+    res.status(200).json({
+      ok: true,
+      data: contactList
+    })
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: error.message
+    })
+  }
+}
 
-module.exports = { getContacts };
+module.exports = { getContacts }
