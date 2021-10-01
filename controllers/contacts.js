@@ -17,8 +17,7 @@ const getContacts = async (req, res) => {
     catch (error) {
         res.status(500).json({
             ok: false,
-            msg: 'Unknow error, contact admin',
-            error,
+            msg: error.message
         });
     }
 };
