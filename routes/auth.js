@@ -4,7 +4,8 @@ Imports
 const express = require('express')
 
 const router = express.Router()
-const { body } = require('express-validator')
+const schemas = require('../validation-schemas/auth')
+const { validate } = require('../middlewares/validate')
 
 /*
 Controllers
@@ -14,11 +15,6 @@ const { authLogin } = require('../controllers/auth')
 /*
 Routes
 */
-router.post('/login',
-/* username must be an email */
-  body('username').isEmail(),
-  /* password must be at least 6 chars long */
-  body('password').isLength({ min: 6 }),
-  authLogin)
+router.post('/login', validate(schemas), authLogin)
 
 module.exports = router
