@@ -8,6 +8,7 @@ const categoriesRouter = require('./categories')
 const membersRouter = require('./members')
 const contactsRouter = require('./contacts')
 const activitiesRouter = require('./activities')
+const organizationRouter = require('./organization')
 
 /* Routes */
 router.use('/news', newsRouter)
@@ -17,6 +18,7 @@ router.use('/categories', categoriesRouter)
 router.use('/members', membersRouter)
 router.use('/contacts', contactsRouter)
 router.use('/activities', activitiesRouter)
+router.use('/organizations/1/public', organizationRouter)
 
 /* GET home page. */
 router.get('/', (req, res) => {
