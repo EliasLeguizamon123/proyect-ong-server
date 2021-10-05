@@ -18,7 +18,8 @@ pipelines:
         - step:
             name: Code linting
             script:
-              - npm install eslint
+              - npm install
               - npm run lint:js
+              - npm run prettier-format
             caches:
               - node
