@@ -17,8 +17,8 @@ Routes
 router.post('/login',
 /* username must be an email */
   body('username').isEmail(),
-  /* password must be at least 5 chars long */
-  body('password').isLength({ min: 5 }),
+  /* password must be at least 6 chars long */
+  body('password').isLength({ min: 6 }),
   authLogin)
 
 module.exports = router
