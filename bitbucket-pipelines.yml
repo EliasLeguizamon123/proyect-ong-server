@@ -20,5 +20,6 @@ pipelines:
             script:
               - npm install
               - npm run lint:js
+              - npm run prettier-format
             caches:
               - node
