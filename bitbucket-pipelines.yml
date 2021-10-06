@@ -6,19 +6,19 @@
 image: node:10.15.3
 
 pipelines:
-  default:
-    - parallel:
-        - step:
-            name: Build and Test
-            caches:
-              - node
-            script:
-              - npm install
-              - npm test
-        - step:
-            name: Code linting
-            script:
-              - npm install eslint
-              - npm run lint:js
-            caches:
-              - node
+  pull-requests:
+    "**":
+      - step:
+          name: Test
+          caches:
+            - node
+          script:
+            - npm install
+            - npm run test
+      - step:
+          name: Code linting
+          script:
+            - npm install
+            - npm run lint:js
+          caches:
+            - node
