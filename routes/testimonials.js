@@ -7,9 +7,11 @@ const router = Router()
 /*
 Controllers
 */
-const { postTestimony } = require('../controllers/testimonials')
+const { postTestimony, deleteTestimony } = require('../controllers/testimonials')
 
 // POST /testimonials
-router.post('/', postTestimony)
+router.post('/:id', postTestimony)
+// DELETE /testimonials
+router.delete('/:id', deleteTestimony)
 
 module.exports = router

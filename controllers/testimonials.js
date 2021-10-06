@@ -22,4 +22,25 @@ const postTestimony = async (req, res) => {
   }
 }
 
-module.exports = { postTestimony }
+const deleteTestimony = async (req, res) => {
+  try {
+    const { id } = req.params
+    const testimony = await Testimony.findByPk(id)
+    if (!testimony) {
+      return res.status(404).json({
+        ok: false,
+        msg: `Testimony with id: ${id} not found`
+      })
+    }
+    await Testimony.destroy({ where: { id } })
+    return res.status(200).json({
+      ok: true
+    })
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      msg: error.message
+    })
+  }
+}
+module.exports = { postTestimony, deleteTestimony }
