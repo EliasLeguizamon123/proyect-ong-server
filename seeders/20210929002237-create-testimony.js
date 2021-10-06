@@ -2,8 +2,8 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-      await queryInterface.bulkInsert('Testimonials', [{
-        name: 'Demo testimonials',
+      await queryInterface.bulkInsert('Testimonies', [{
+        name: 'Demo Testimonies',
         image: 'https://i.blogs.es/594843/chrome/450_1000.jpg',
         content: 'Phasellus scelerisque sed augue non hendrerit.',
         createdAt: new Date(),
@@ -13,7 +13,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-      await queryInterface.bulkDelete('Testimonials', null, {});
+      await queryInterface.bulkDelete('Testimonies', null, {});
      
   }
 };

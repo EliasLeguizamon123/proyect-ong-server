@@ -1,18 +1,18 @@
 /*
 Imports
 */
-const { Testimonial } = require('../models/index')
+const { Testimony } = require('../models/index')
 
 /*
-Controller's Testimonials
+Controller's Testimonys
 */
-const postTestimonial = async (req, res) => {
+const postTestimony = async (req, res) => {
   try {
-    const newTestimonial = { ...req.body }
-    const testimonial = await Testimonial.create(newTestimonial)
+    const newTestimony = { ...req.body }
+    const testimony = await Testimony.create(newTestimony)
     res.status(200).json({
       ok: true,
-      data: testimonial
+      data: testimony
     })
   } catch (error) {
     res.status(500).json({
@@ -22,4 +22,4 @@ const postTestimonial = async (req, res) => {
   }
 }
 
-module.exports = { postTestimonial }
+module.exports = { postTestimony }
