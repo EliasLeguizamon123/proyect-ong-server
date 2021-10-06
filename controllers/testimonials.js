@@ -22,6 +22,21 @@ const postTestimony = async (req, res) => {
   }
 }
 
+const putTestimony = async (req, res) => {
+  const { id } = req.params
+  const testimonyExists = await Testimony.findByPk(id)
+  if (testimonyExists) {
+    try {
+      const updatedTestimony = await Testimony.update(req.body, { where: { id } })
+      return res.status(200).json({ ok: true, data: updatedTestimony[0] })
+    } catch (err) {
+      return res.status(500).json({ ok: false, msg: err.message })
+    }
+  }
+
+  return res.status(404).json({ ok: false, msg: `Cannot find testimony with id ${id}` })
+}
+
 const deleteTestimony = async (req, res) => {
   try {
     const { id } = req.params
@@ -43,4 +58,4 @@ const deleteTestimony = async (req, res) => {
     })
   }
 }
-module.exports = { postTestimony, deleteTestimony }
+module.exports = { postTestimony, deleteTestimony, putTestimony }

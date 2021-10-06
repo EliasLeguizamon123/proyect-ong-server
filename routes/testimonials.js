@@ -7,8 +7,12 @@ const router = Router()
 /*
 Controllers
 */
-const { postTestimony, deleteTestimony } = require('../controllers/testimonials')
+const { postTestimony, putTestimony, deleteTestimony } = require('../controllers/testimonials')
+const { validate } = require('../middlewares/validate')
+const testimonySchema = require('../validation-schemas/testimony')
 
+// PUT /testimonials
+router.put('/:id', validate(testimonySchema), putTestimony)
 // POST /testimonials
 router.post('/:id', postTestimony)
 // DELETE /testimonials
