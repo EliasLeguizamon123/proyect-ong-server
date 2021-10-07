@@ -11,7 +11,7 @@ const verifyToken = async (req, res, next) => {
     // decode the token
     const decoded = jwt.verify(token, JWT_SECRET_KEY)
 
-    // save the user id
+    // save the user info
     req.user = decoded
 
     return next()
