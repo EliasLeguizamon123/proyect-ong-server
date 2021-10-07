@@ -5,7 +5,7 @@ const { JWT_SECRET_KEY } = process.env
 const verifyToken = async (req, res, next) => {
   try {
     // get the token from the headers:
-    const token = req.headers['x-access-token']
+    const token = req.headers.authorization.split(' ')[1]
     if (!token) throw new Error('no Token aws Provided')
 
     // decode the token
