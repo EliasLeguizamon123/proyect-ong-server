@@ -58,4 +58,27 @@ const deleteTestimony = async (req, res) => {
     })
   }
 }
-module.exports = { postTestimony, deleteTestimony, putTestimony }
+
+const getTestimony = async (req, res) => {
+  const { id } = req.params
+  try {
+    const testimony = await Testimony.findByPk(id)
+    if (testimony) res.status(200).json({ ok: true, data: testimony })
+    else res.status(404).json({ ok: false, msg: 'Testimony not found' })
+  } catch (err) {
+    res.status(500).json({ ok: false, msg: err.message })
+  }
+}
+
+const getAllTestimonies = async (req, res) => {
+  try {
+    const testimonies = await Testimony.findAll({})
+    res.status(200).json({ ok: true, data: testimonies })
+  } catch (err) {
+    res.status(500).json({ ok: false, msg: err.message })
+  }
+}
+
+module.exports = {
+  postTestimony, deleteTestimony, putTestimony, getTestimony, getAllTestimonies
+}
