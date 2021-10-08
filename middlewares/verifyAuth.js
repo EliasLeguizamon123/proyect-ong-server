@@ -19,9 +19,9 @@ const verifyToken = async (req, res, next) => {
     // save the user info
     req.user = decoded
 
-    return next()
+    next()
   } catch (error) {
-    return res.status(500).json({
+    res.status(500).json({
       ok: false,
       msg: error.message
     })
