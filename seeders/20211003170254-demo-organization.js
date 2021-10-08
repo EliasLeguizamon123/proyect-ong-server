@@ -7,7 +7,9 @@ module.exports = {
       image: 'https://images.freeimages.com/images/premium/previews/1703/17036319-large-group-of-people-embracing-and-smiling-together.jpg',
       phone: 1160112988,
       address: 'calle falsa 123, La Cava',
-      welcomeText:'¡Bienvenida/o! Gracias por el interés en formar parte de nuestra comunidad'
+      welcomeText:'¡Bienvenida/o! Gracias por el interés en formar parte de nuestra comunidad',
+      createdAt: new Date(),
+      updatedAt: new Date()
     }], {});
 
   },

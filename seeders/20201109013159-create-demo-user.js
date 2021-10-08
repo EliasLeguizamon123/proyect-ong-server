@@ -10,8 +10,8 @@ module.exports = {
       password: '1234',
       roleId: 1,
       image: 'https://www.designevo.com/res/templates/thumb_small/colorful-hand-and-warm-community.png',
-      createdAt: new Date,
-      updatedAt: new Date
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       firstName: 'Juan',
@@ -20,8 +20,8 @@ module.exports = {
       password: '1111',
       roleId: 2,
       image: 'https://sacd.org.ar/wp-content/uploads/2020/05/user-account-management-logo-user-icon-11562867145a56rus2zwu.png',
-      createdAt: new Date,
-      updatedAt: new Date
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       firstName: 'Brian',
@@ -30,8 +30,8 @@ module.exports = {
       password: '2222',
       roleId: 1,
       image: 'https://sacd.org.ar/wp-content/uploads/2020/05/user-account-management-logo-user-icon-11562867145a56rus2zwu.png',
-      createdAt: new Date,
-      updatedAt: new Date
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       firstName: 'usuario4',
@@ -40,8 +40,8 @@ module.exports = {
       password: '4444',
       roleId: 2,
       image: 'https://sacd.org.ar/wp-content/uploads/2020/05/user-account-management-logo-user-icon-11562867145a56rus2zwu.png',
-      createdAt: new Date,
-      updatedAt: new Date
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       firstName: 'Pedro',
@@ -50,8 +50,8 @@ module.exports = {
       password: '5555',
       roleId: 1,
       image: 'https://sacd.org.ar/wp-content/uploads/2020/05/user-account-management-logo-user-icon-11562867145a56rus2zwu.png',
-      createdAt: new Date,
-      updatedAt: new Date
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       firstName: 'Juan',
@@ -60,8 +60,8 @@ module.exports = {
       password: '6666',
       roleId: 2,
       image: 'https://sacd.org.ar/wp-content/uploads/2020/05/user-account-management-logo-user-icon-11562867145a56rus2zwu.png',
-      createdAt: new Date,
-      updatedAt: new Date
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       firstName: 'Daniel',
@@ -70,8 +70,8 @@ module.exports = {
       password: '7777',
       roleId: 1,
       image: 'https://sacd.org.ar/wp-content/uploads/2020/05/user-account-management-logo-user-icon-11562867145a56rus2zwu.png',
-      createdAt: new Date,
-      updatedAt: new Date
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       firstName: 'Alberto',
@@ -80,8 +80,8 @@ module.exports = {
       password: '8888',
       roleId: 2,
       image: 'https://sacd.org.ar/wp-content/uploads/2020/05/user-account-management-logo-user-icon-11562867145a56rus2zwu.png',
-      createdAt: new Date,
-      updatedAt: new Date
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       firstName: 'Luciana',
@@ -90,8 +90,8 @@ module.exports = {
       password: '9999',
       roleId: 1,
       image: 'https://sacd.org.ar/wp-content/uploads/2020/05/user-account-management-logo-user-icon-11562867145a56rus2zwu.png',
-      createdAt: new Date,
-      updatedAt: new Date
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       firstName: 'Valeria',
@@ -100,8 +100,8 @@ module.exports = {
       password: '1010',
       roleId: 2,
       image: 'https://sacd.org.ar/wp-content/uploads/2020/05/user-account-management-logo-user-icon-11562867145a56rus2zwu.png',
-      createdAt: new Date,
-      updatedAt: new Date
+      createdAt: new Date(),
+      updatedAt: new Date()
     }], {});
   },
 
