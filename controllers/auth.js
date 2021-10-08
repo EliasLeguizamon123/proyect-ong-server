@@ -3,7 +3,7 @@ Imports
 */
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const { User, Role } = require('../models/index')
+const { User } = require('../models/index')
 
 const { JWT_SECRET_KEY } = process.env
 
@@ -16,10 +16,7 @@ const authLogin = async (req, res) => {
     const user = await User.finOne({
       where: {
         email
-      },
-      include: [{
-        model: Role
-      }]
+      }
     })
 
     if (!user) throw new Error('The email is not registered.')
@@ -32,9 +29,8 @@ const authLogin = async (req, res) => {
     const userData = {
       firstName: user.firstName,
       lastName: user.lastName,
-      email: user.lastName,
-      image: user.image ? user.image : null,
-      roles: user.roles ? user.roles : null
+      email: user.email,
+      image: user.image ? user.image : null
     }
 
     const token = jwt.sign(userData, JWT_SECRET_KEY, {
@@ -43,7 +39,6 @@ const authLogin = async (req, res) => {
 
     return res.status(200).json({
       ok: true,
-      data: userData,
       token
     })
   } catch (error) {

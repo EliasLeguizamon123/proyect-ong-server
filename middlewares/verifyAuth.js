@@ -6,7 +6,12 @@ const verifyToken = async (req, res, next) => {
   try {
     // get the token from the headers:
     const token = req.headers.authorization.split(' ')[1]
-    if (!token) throw new Error('no Token aws Provided')
+    if (!token) {
+      res.status(401).json({
+        ok: false,
+        msg: 'No Auth Provided'
+      })
+    }
 
     // decode the token
     const decoded = jwt.verify(token, JWT_SECRET_KEY)
