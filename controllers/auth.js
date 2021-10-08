@@ -22,7 +22,7 @@ const authLogin = async (req, res) => {
     if (!user) throw new Error('The email is not registered.')
 
     /*   method provided by bcrypt to compare passwords:   */
-    const passwordMatch = bcrypt.compareSync(password, user.password)
+    const passwordMatch = bcrypt.compare(password, user.password)
 
     if (!passwordMatch) throw new Error("Passwords don't match")
 
@@ -39,6 +39,7 @@ const authLogin = async (req, res) => {
 
     return res.status(200).json({
       ok: true,
+      data: userData,
       token
     })
   } catch (error) {
