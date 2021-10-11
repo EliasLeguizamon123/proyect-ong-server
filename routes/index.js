@@ -19,7 +19,7 @@ router.use('/categories', categoriesRouter)
 router.use('/members', membersRouter)
 router.use('/contacts', contactsRouter)
 router.use('/activities', activitiesRouter)
-router.use('/organizations/1/public', organizationRouter)
+router.use('/organizations', organizationRouter)
 router.use('/auth', authRoutes)
 
 /* GET home page. */

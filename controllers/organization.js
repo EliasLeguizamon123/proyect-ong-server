@@ -1,8 +1,19 @@
-const { Organization } = require('../models/index')
+const { Organization, OrganizationLink } = require('../models/index')
 
 const getPublicData = async (req, res) => {
+  const { id } = req.params
+
   try {
-    const PublicData = await Organization.findAll({})
+    const PublicData = await Organization.findAll({
+      where: {
+        id
+      },
+      include: [
+        {
+          model: OrganizationLink
+        }
+      ]
+    })
     return res.status(200).json({
       ok: true,
       data: PublicData
