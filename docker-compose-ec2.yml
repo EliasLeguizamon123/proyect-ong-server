@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  mysql_db_75:
+    image: mysql
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+      MYSQL_DATABASE: $DB_NAME
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    networks:
+      - backend
+    ports:
+      - $DB_LOCAL_PORT:$DB_PORT
+    expose:
+      - $DB_PORT
+    volumes: 
+      - db-config:/etc/mysql
+      - db-data:/var/lib/mysql
+      - ./db/backup/files/:/data_backup/data
+  app:
+    build: .
+    image: node-mysql-app
+    depends_on:
+      mysql_db_75:
+        condition: service_healthy
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - $API_PORT:$API_PORT
+    environment:
+      - DB_HOST=mysql_db_75
+      - DB_USER=$DB_USER
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_NAME=$DB_NAME
+      - DB_PORT=$DB_PORT
+    networks:
+      - backend
+    stdin_open: true
+    tty: true
+
+volumes:
+  db-config:
+  db-data:
+
+networks:
+  backend:
