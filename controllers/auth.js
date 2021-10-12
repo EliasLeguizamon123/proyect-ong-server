@@ -5,13 +5,15 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const { User } = require('../models/index')
 
+const { JWT_SECRET_KEY } = process.env
+
 /*
 Controllers
 */
 const authLogin = async (req, res) => {
   try {
     const { email, password } = req.body
-    const user = await User.finOne({
+    const user = await User.findOne({
       where: {
         email
       }
@@ -24,9 +26,21 @@ const authLogin = async (req, res) => {
 
     if (!passwordMatch) throw new Error("Passwords don't match")
 
+    const userData = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      image: user.image ? user.image : null
+    }
+
+    const token = jwt.sign(userData, JWT_SECRET_KEY, {
+      expiresIn: 60 * 60 * 24 // 60*60*24s = 1day
+    })
+
     return res.status(200).json({
       ok: true,
-      data: user
+      data: userData,
+      token
     })
   } catch (error) {
     return res.status(500).json({
