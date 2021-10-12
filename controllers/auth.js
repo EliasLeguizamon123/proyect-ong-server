@@ -39,8 +39,10 @@ const authLogin = async (req, res) => {
 
     return res.status(200).json({
       ok: true,
-      data: userData,
-      token
+      data: {
+        user: userData,
+        token
+      }
     })
   } catch (error) {
     return res.status(500).json({
