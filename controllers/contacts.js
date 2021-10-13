@@ -21,4 +21,13 @@ const getContacts = async (req, res) => {
   }
 }
 
-module.exports = { getContacts }
+const postContact = async (req, res) => {
+  try {
+    await Contact.create(req.body)
+    return res.status(201).json({ ok: true, msg: 'Contact message saved succesfully' })
+  } catch (err) {
+    return res.status(500).json({ ok: false, msg: err.message })
+  }
+}
+
+module.exports = { getContacts, postContact }
