@@ -10,6 +10,7 @@ const contactsRouter = require('./contacts')
 const activitiesRouter = require('./activities')
 const organizationRouter = require('./organization')
 const authRoutes = require('./auth')
+const slides = require('./slides')
 
 /* Routes */
 router.use('/news', newsRouter)
@@ -21,6 +22,7 @@ router.use('/contacts', contactsRouter)
 router.use('/activities', activitiesRouter)
 router.use('/organizations', organizationRouter)
 router.use('/auth', authRoutes)
+router.use('/slides', slides)
 
 /* GET home page. */
 router.get('/', (req, res) => {

@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       OrganizationLink.belongsTo(models.Organization,{
-        foreignKey: "organizationId",
+        foreignKey: "organizationId", 
         onDelete: "CASCADE",
 				as: "createdBy"
       })
