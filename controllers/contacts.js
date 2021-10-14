@@ -10,7 +10,13 @@ Controllers contacts
 */
 const getContacts = async (req, res) => {
   try {
-    const contactList = await Contact.findAll({ attributes: ['name', 'phone', 'email', 'message'] })
+    const { limit, offset } = req.query
+    const contactList = await Contact.findAndCountAll({
+      attributes: ['id', 'name', 'phone', 'email', 'message', 'createdAt'],
+      offset: Number(offset),
+      limit: Number(limit),
+      order: [['createdAt', 'DESC']]
+    })
     res.status(200).json({
       ok: true,
       data: contactList
