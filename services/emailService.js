@@ -6,7 +6,7 @@ const emailService = async (email, subject, message) => {
     to: email,
     from: process.env.SENDGRID_EMAIL,
     subject,
-    text: message
+    html: message
   }
 
   try {

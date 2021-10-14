@@ -8,7 +8,7 @@ Controllers categories
 */
 const getCategories = async (req, res) => {
   try {
-    const categoriesList = await Category.findAll({ attributes: ['name'] })
+    const categoriesList = await Category.findAll({ attributes: ['id', 'name'] })
     res.status(200).json({
       ok: true,
       data: categoriesList
