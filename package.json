@@ -29,7 +29,8 @@
     "morgan": "~1.9.1",
     "mysql2": "^2.2.3",
     "sequelize": "^6.3.5",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "yup-phone": "^1.2.19"
   },
   "devDependencies": {
     "eslint": "^7.32.0",

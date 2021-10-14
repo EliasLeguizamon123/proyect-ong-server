@@ -8,3 +8,10 @@ exports.add = yup.object({
     image: yup.string().required().url()
   })
 })
+
+// Validation for existance and numeric type of param
+exports.onlyParam = yup.object({
+  params: yup.object({
+    id: yup.number().required()
+  })
+})

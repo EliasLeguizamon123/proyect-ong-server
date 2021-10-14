@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       Organization.hasMany(models.OrganizationLink,{
         foreignKey: 'organizationId',
       })
+      Organization.hasMany(models.Slide,{
+        foreignKey: 'organizationId'
+      })
     }
   };
   Organization.init({
