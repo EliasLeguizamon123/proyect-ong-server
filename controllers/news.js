@@ -2,9 +2,9 @@ const { Entry } = require('../models/index')
 
 const getEntries = async (req, res) => {
   try {
-    const newsList = await Entry.findAll({
+    const newsList = await Entry.findAndCountAll({
       where: { type: 'news' },
-      attributes: ['name', 'image', 'createdAt']
+      attributes: ['id', 'name', 'image', 'createdAt']
     })
     return res.status(200).json({
       ok: true,
