@@ -55,7 +55,7 @@ const authLogin = async (req, res) => {
 const authRegister = async (req, res) => {
   try {
     const {
-      firstName, lastName, email, password
+      firstName, lastName, email, password, roleId
     } = req.body
     /* Encrypt password */
     const salt = bcrypt.genSaltSync(10)
@@ -65,13 +65,14 @@ const authRegister = async (req, res) => {
     /* Save user into BD */
     if (user) throw new Error('User already register')
     const savedUser = await User.create({
-      firstName, lastName, email, password: passwordHash
+      firstName, lastName, email, password: passwordHash, roleId
     })
     /* jwt token sign and expiration */
     const resUser = {
       firstName: savedUser.firstName,
       lastName: savedUser.lastName,
-      email: savedUser.email
+      email: savedUser.email,
+      roleId: savedUser.roleId
     }
     const token = jwt.sign({ savedUser }, process.env.JWT_SECRET_KEY, {
       expiresIn: process.env.EXPIRE_TIMEOUT
