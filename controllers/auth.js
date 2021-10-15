@@ -65,13 +65,20 @@ const authRegister = async (req, res) => {
     /* Save user into BD */
     if (user) throw new Error('User already register')
     const savedUser = await User.create({
-      firstName, lastName, email, password: passwordHash
+      firstName,
+      lastName,
+      email,
+      password: passwordHash,
+      roleId: 2,
+      image: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_960_720.png'
     })
     /* jwt token sign and expiration */
     const resUser = {
       firstName: savedUser.firstName,
       lastName: savedUser.lastName,
-      email: savedUser.email
+      email: savedUser.email,
+      roleId: savedUser.roleId,
+      image: savedUser.image
     }
     const token = jwt.sign({ savedUser }, process.env.JWT_SECRET_KEY, {
       expiresIn: process.env.EXPIRE_TIMEOUT
