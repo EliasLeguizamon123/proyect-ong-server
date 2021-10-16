@@ -53,9 +53,7 @@ const getAllSlide = async (req, res) => {
     if (organizationExist) {
       const sliders = await Organization.findAll({
         where: { id },
-        include: [
-          { model: Slide }
-        ]
+        include: [{ model: Slide, order: ['order', 'ASC'] }]
       })
       // response
       res.status(200).json({
@@ -83,7 +81,7 @@ const getSlide = async (req, res) => {
     if (id) {
       const slider = await Slide.findByPk(id)
       if (slider) {
-      // response
+        // response
         res.status(200).json({
           ok: true,
           data: slider
@@ -104,5 +102,8 @@ const getSlide = async (req, res) => {
 }
 
 module.exports = {
-  postSlide, updateSlide, getAllSlide, getSlide
+  postSlide,
+  updateSlide,
+  getAllSlide,
+  getSlide
 }

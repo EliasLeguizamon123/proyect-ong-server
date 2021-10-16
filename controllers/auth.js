@@ -70,7 +70,8 @@ const authRegister = async (req, res) => {
       email,
       password: passwordHash,
       roleId: 2,
-      image: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_960_720.png'
+      image:
+        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_960_720.png'
     })
     /* jwt token sign and expiration */
     const resUser = {
@@ -80,7 +81,7 @@ const authRegister = async (req, res) => {
       roleId: savedUser.roleId,
       image: savedUser.image
     }
-    const token = jwt.sign({ savedUser }, process.env.JWT_SECRET_KEY, {
+    const token = jwt.sign({ resUser }, process.env.JWT_SECRET_KEY, {
       expiresIn: process.env.EXPIRE_TIMEOUT
     })
     return res.status(200).json({
@@ -98,7 +99,20 @@ const authRegister = async (req, res) => {
   }
 }
 
+const authUserData = (req, res) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1]
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
+    return res.status(200).json(decoded)
+  } catch (e) {
+    return res.status(401).json({
+      message: 'No user provided'
+    })
+  }
+}
+
 module.exports = {
   authLogin,
-  authRegister
+  authRegister,
+  authUserData
 }

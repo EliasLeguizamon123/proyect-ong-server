@@ -11,12 +11,13 @@ const { validate } = require('../middlewares/validate')
 /*
 Controllers
 */
-const { authLogin, authRegister } = require('../controllers/auth')
+const { authLogin, authRegister, authUserData } = require('../controllers/auth')
 
 /*
 Routes
 */
 router.post('/login', validate(schemas), authLogin)
 router.post('/register', validate(newUserAuth), authRegister)
+router.get('/me', authUserData)
 
 module.exports = router

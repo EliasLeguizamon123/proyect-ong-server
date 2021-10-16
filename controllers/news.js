@@ -4,7 +4,8 @@ const getEntries = async (req, res) => {
   try {
     const newsList = await Entry.findAndCountAll({
       where: { type: 'news' },
-      attributes: ['id', 'name', 'image', 'createdAt']
+      attributes: ['id', 'name', 'image', 'createdAt'],
+      order: [['updatedAt', 'DESC']]
     })
     return res.status(200).json({
       ok: true,
