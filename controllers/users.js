@@ -55,8 +55,35 @@ const updateUserById = async (req, res) => {
     })
   }
 }
+
+const deleteUserById = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    // If the user is not admin and is not trying to delete itself,
+    // it will be not authorized
+    if (parseInt(id, 10) !== req.user.userData.id && req.user.userData.roleId !== 1) {
+      return res.status(401).json({ ok: false, msg: 'Not allowed' })
+    }
+
+    const userExist = await User.findByPk(id)
+    if (!userExist) {
+      return res.status(404).json({ ok: false, msg: 'Not found' })
+    }
+    await userExist.destroy()
+    res.status(200).json({ ok: true, msg: 'User deleted' })
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: error.message
+    })
+  }
+  return null
+}
+
 module.exports = {
   getUsers,
   getUserById,
-  updateUserById
+  updateUserById,
+  deleteUserById
 }

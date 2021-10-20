@@ -18,7 +18,9 @@ const authLogin = async (req, res) => {
         email
       }
     })
-    if (!user) res.json({ data: { ok: false, msg: 'Email o contraseña incorrectos' } })
+    if (!user) {
+      return res.status(401).json({ data: { ok: false, msg: 'Email o contraseña incorrectos' } })
+    }
     /*   method provided by bcrypt to compare passwords:   */
     const passwordMatch = await bcrypt.compare(password, user.password)
     if (passwordMatch) {
@@ -26,20 +28,23 @@ const authLogin = async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        image: user.image ? user.image : null
+        image: user.image ? user.image : null,
+        roleId: user.roleId,
+        id: user.id
       }
 
       const token = jwt.sign(userData, JWT_SECRET_KEY, {
-        expiresIn: process.env.EXPIRE_TIMEOUT // 60*60*24s = 1day
+        expiresIn: process.env.EXPIRE_TIMEOUT
       })
       res.status(200).json({
         data: {
           ok: true,
-          token
+          token,
+          userData
         }
       })
     } else {
-      res.json({
+      res.status(401).json({
         data: { ok: false, msg: 'Email o contraseña incorrectos' }
       })
     }
@@ -49,6 +54,7 @@ const authLogin = async (req, res) => {
       msg: error.message
     })
   }
+  return null
 }
 
 const authRegister = async (req, res) => {
@@ -62,7 +68,7 @@ const authRegister = async (req, res) => {
     /* Verify user into BD */
     const user = await User.findOne({ where: { email } })
     /* Save user into BD */
-    if (user) return res.json({ data: { ok: false, msg: 'Email ya registrado' } })
+    if (user) return res.status(403).json({ data: { ok: false, msg: 'Email ya registrado' } })
     const savedUser = await User.create({
       firstName,
       lastName,
@@ -73,18 +79,20 @@ const authRegister = async (req, res) => {
         'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_960_720.png'
     })
     /* jwt token sign and expiration */
-    const resUser = {
+    const userData = {
       firstName: savedUser.firstName,
       lastName: savedUser.lastName,
       email: savedUser.email,
       roleId: savedUser.roleId,
-      image: savedUser.image
+      image: savedUser.image,
+      id: savedUser.id
     }
-    const token = jwt.sign({ resUser }, process.env.JWT_SECRET_KEY, {
+
+    const token = jwt.sign({ userData }, process.env.JWT_SECRET_KEY, {
       expiresIn: process.env.EXPIRE_TIMEOUT
     })
     return res.status(200).json({
-      data: { ok: true, token }
+      data: { ok: true, token, userData }
     })
   } catch (error) {
     return res.status(500).json({
