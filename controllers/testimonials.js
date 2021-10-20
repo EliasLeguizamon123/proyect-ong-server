@@ -24,49 +24,38 @@ const postTestimony = async (req, res) => {
 
 const putTestimony = async (req, res) => {
   const { id } = req.params
-  const testimonyExists = await Testimony.findByPk(id)
-  if (testimonyExists) {
-    try {
-      const updatedTestimony = await Testimony.update(req.body, { where: { id } })
-      return res.status(200).json({ ok: true, data: updatedTestimony[0] })
-    } catch (err) {
-      return res.status(500).json({ ok: false, msg: err.message })
-    }
+  const testimony = await Testimony.findOne({ where: { id } })
+  if (testimony) {
+    await Testimony.update(req.body, { where: { id } })
+    res.status(200).json({ ok: true })
+  } else {
+    res.status(404).json({ ok: false, msg: `Cannot find testimony with id ${id}` })
   }
-
-  return res.status(404).json({ ok: false, msg: `Cannot find testimony with id ${id}` })
 }
 
 const deleteTestimony = async (req, res) => {
-  try {
-    const { id } = req.params
-    const testimony = await Testimony.findByPk(id)
-    if (!testimony) {
-      return res.status(404).json({
-        ok: false,
-        msg: `Testimony with id: ${id} not found`
-      })
-    }
+  const { id } = req.params
+  const testimony = await Testimony.findOne({ where: { id } })
+  if (testimony) {
     await Testimony.destroy({ where: { id } })
-    return res.status(200).json({
+    res.status(200).json({
       ok: true
     })
-  } catch (error) {
-    return res.status(500).json({
+  } else {
+    res.status(404).json({
       ok: false,
-      msg: error.message
+      msg: `Testimony with id: ${id} not found`
     })
   }
 }
 
 const getTestimony = async (req, res) => {
   const { id } = req.params
-  try {
-    const testimony = await Testimony.findByPk(id)
-    if (testimony) res.status(200).json({ ok: true, data: testimony })
-    else res.status(404).json({ ok: false, msg: 'Testimony not found' })
-  } catch (err) {
-    res.status(500).json({ ok: false, msg: err.message })
+  const testimony = await Testimony.findOne({ where: { id } })
+  if (testimony) {
+    res.status(200).json({ ok: true, data: testimony })
+  } else {
+    res.status(404).json({ ok: false, msg: 'Testimony not found' })
   }
 }
 
@@ -80,5 +69,9 @@ const getAllTestimonies = async (req, res) => {
 }
 
 module.exports = {
-  postTestimony, deleteTestimony, putTestimony, getTestimony, getAllTestimonies
+  postTestimony,
+  deleteTestimony,
+  putTestimony,
+  getTestimony,
+  getAllTestimonies
 }
