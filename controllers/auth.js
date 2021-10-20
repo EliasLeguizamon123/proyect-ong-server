@@ -18,34 +18,33 @@ const authLogin = async (req, res) => {
         email
       }
     })
-
-    if (!user) throw new Error('The email is not registered.')
-
+    if (!user) res.json({ data: { ok: false, msg: 'Email o contraseña incorrectos' } })
     /*   method provided by bcrypt to compare passwords:   */
-    const passwordMatch = bcrypt.compare(password, user.password)
-
-    if (!passwordMatch) throw new Error("Passwords don't match")
-
-    const userData = {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      image: user.image ? user.image : null
-    }
-
-    const token = jwt.sign(userData, JWT_SECRET_KEY, {
-      expiresIn: 60 * 60 * 24 // 60*60*24s = 1day
-    })
-
-    return res.status(200).json({
-      ok: true,
-      data: {
-        user: userData,
-        token
+    const passwordMatch = await bcrypt.compare(password, user.password)
+    if (passwordMatch) {
+      const userData = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        image: user.image ? user.image : null
       }
-    })
+
+      const token = jwt.sign(userData, JWT_SECRET_KEY, {
+        expiresIn: process.env.EXPIRE_TIMEOUT // 60*60*24s = 1day
+      })
+      res.status(200).json({
+        data: {
+          ok: true,
+          token
+        }
+      })
+    } else {
+      res.json({
+        data: { ok: false, msg: 'Email o contraseña incorrectos' }
+      })
+    }
   } catch (error) {
-    return res.status(500).json({
+    res.status(500).json({
       ok: false,
       msg: error.message
     })
@@ -63,7 +62,7 @@ const authRegister = async (req, res) => {
     /* Verify user into BD */
     const user = await User.findOne({ where: { email } })
     /* Save user into BD */
-    if (user) throw new Error('User already register')
+    if (user) return res.json({ data: { ok: false, msg: 'Email ya registrado' } })
     const savedUser = await User.create({
       firstName,
       lastName,
@@ -85,16 +84,11 @@ const authRegister = async (req, res) => {
       expiresIn: process.env.EXPIRE_TIMEOUT
     })
     return res.status(200).json({
-      ok: true,
-      data: {
-        ...resUser,
-        token
-      }
+      data: { ok: true, token }
     })
   } catch (error) {
     return res.status(500).json({
-      ok: false,
-      msg: error.message
+      data: { ok: false, msg: error.message }
     })
   }
 }
@@ -103,9 +97,9 @@ const authUserData = (req, res) => {
   try {
     const token = req.headers.authorization.split(' ')[1]
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
-    return res.status(200).json(decoded)
+    res.status(200).json(decoded)
   } catch (e) {
-    return res.status(401).json({
+    res.status(401).json({
       message: 'No user provided'
     })
   }
