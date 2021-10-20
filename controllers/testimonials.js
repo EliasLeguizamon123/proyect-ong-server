@@ -24,22 +24,24 @@ const postTestimony = async (req, res) => {
 
 const putTestimony = async (req, res) => {
   const { id } = req.params
-  try {
+  const testimony = await Testimony.findOne({ where: { id } })
+  if (testimony) {
     await Testimony.update(req.body, { where: { id } })
     res.status(200).json({ ok: true })
-  } catch (err) {
+  } else {
     res.status(404).json({ ok: false, msg: `Cannot find testimony with id ${id}` })
   }
 }
 
 const deleteTestimony = async (req, res) => {
   const { id } = req.params
-  try {
+  const testimony = await Testimony.findOne({ where: { id } })
+  if (testimony) {
     await Testimony.destroy({ where: { id } })
     res.status(200).json({
       ok: true
     })
-  } catch {
+  } else {
     res.status(404).json({
       ok: false,
       msg: `Testimony with id: ${id} not found`

@@ -4,6 +4,7 @@ const app = require('../app')
 const api = request(app)
 
 let token
+let id
 
 beforeAll(async () => {
   await api
@@ -52,6 +53,7 @@ describe('POST /testimonials', () => {
       .set('Authorization', `Bearer ${token}`)
       .send(data)
       .then((response) => {
+        id = response.body.data.id
         expect(response.statusCode).toBe(200)
         expect(response.type).toBe('application/json')
       })
@@ -86,33 +88,6 @@ describe('POST /testimonials', () => {
   })
 })
 
-describe('DELETE /testimonials', () => {
-  test('respond with 200 when the testimony is deleted', async () => {
-    await api
-      .delete('/testimonials/15')
-      .set('Authorization', `Bearer ${token}`)
-      .then((response) => {
-        expect(response.statusCode).toBe(200)
-        expect(response.type).toBe('application/json')
-      })
-  })
-
-  test('respond with 401 when the user is not authorized to deleted', async () => {
-    await api.delete('/testimonials/15').then((response) => {
-      expect(response.statusCode).toBe(401)
-    })
-  })
-
-  test('respond with a 404 code when the testimony is non-existent', async () => {
-    await api
-      .delete('/testimonials/noexists')
-      .set('Authorization', `Bearer ${token}`)
-      .then((response) => {
-        expect(response.statusCode).toBe(404)
-      })
-  })
-})
-
 describe('PUT /testimonials', () => {
   test('respond with a code 200 when the testimony is successfully modified', async () => {
     const data = {
@@ -122,7 +97,7 @@ describe('PUT /testimonials', () => {
     }
 
     await api
-      .put('/testimonials/1')
+      .put(`/testimonials/${id}`)
       .set('Authorization', `Bearer ${token}`)
       .send(data)
       .then((response) => {
@@ -140,7 +115,7 @@ describe('PUT /testimonials', () => {
     }
 
     await api
-      .put('/testimonials/1')
+      .put(`/testimonials/${id}`)
       .send(data)
       .then((response) => {
         expect(response.statusCode).toBe(401)
@@ -158,6 +133,33 @@ describe('PUT /testimonials', () => {
       .put('/testimonials/noexists')
       .set('Authorization', `Bearer ${token}`)
       .send(data)
+      .then((response) => {
+        expect(response.statusCode).toBe(404)
+      })
+  })
+})
+
+describe('DELETE /testimonials', () => {
+  test('respond with 200 when the testimony is deleted', async () => {
+    await api
+      .delete(`/testimonials/${id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .then((response) => {
+        expect(response.statusCode).toBe(200)
+        expect(response.type).toBe('application/json')
+      })
+  })
+
+  test('respond with 401 when the user is not authorized to deleted', async () => {
+    await api.delete(`/testimonials/${id}`).then((response) => {
+      expect(response.statusCode).toBe(401)
+    })
+  })
+
+  test('respond with a 404 code when the testimony is non-existent', async () => {
+    await api
+      .delete('/testimonials/noexists')
+      .set('Authorization', `Bearer ${token}`)
       .then((response) => {
         expect(response.statusCode).toBe(404)
       })
