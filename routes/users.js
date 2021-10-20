@@ -1,8 +1,11 @@
 const express = require('express')
 
 const router = express.Router()
-const { getUsers, getUserById, updateUserById } = require('../controllers/users')
+const {
+  getUsers, getUserById, updateUserById, deleteUserById
+} = require('../controllers/users')
 
+const { verifyToken } = require('../middlewares/verifyAuth')
 /* GET users listing. */
 router.get('/', getUsers)
 
@@ -10,5 +13,8 @@ router.get('/', getUsers)
 router.get('/:id', getUserById)
 
 router.put('/:id', updateUserById)
+
+// DELETE /user/:id
+router.delete('/:id', verifyToken, deleteUserById)
 
 module.exports = router

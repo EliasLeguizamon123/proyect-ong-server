@@ -1,6 +1,7 @@
 const request = require('supertest')
 
 const app = require('../app')
+
 const api = request(app)
 
 let token
@@ -101,7 +102,6 @@ describe('PUT /testimonials', () => {
       .set('Authorization', `Bearer ${token}`)
       .send(data)
       .then((response) => {
-        console.log(response)
         expect(response.statusCode).toBe(200)
         expect(response.type).toBe('application/json')
       })
