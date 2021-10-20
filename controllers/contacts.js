@@ -39,4 +39,26 @@ const postContact = async (req, res) => {
   }
 }
 
-module.exports = { getContacts, postContact }
+const deleteContacts = async (req, res) => {
+  try {
+    const { id } = req.params
+    const contacts = await Contact.findByPk(id)
+    if (!contacts) {
+      return res.status(404).json({
+        ok: false,
+        msg: `contacts with id: ${id} not found`
+      })
+    }
+    await Contact.destroy({ where: { id } })
+    return res.status(200).json({
+      ok: true
+    })
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      msg: error.message
+    })
+  }
+}
+
+module.exports = { getContacts, postContact, deleteContacts }

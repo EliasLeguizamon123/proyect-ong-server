@@ -18,28 +18,6 @@ beforeAll(async () => {
     })
 })
 
-describe('GET /testimonials', () => {
-  test('respond with a 200 code when it returns a json containing a list of all testimonials', async () => {
-    await api.get('/testimonials').then((response) => {
-      expect(response.statusCode).toBe(200)
-      expect(response.type).toBe('application/json')
-    })
-  })
-
-  test('respond with a 200 code when return a json containing testimony with id', async () => {
-    await api.get('/testimonials/1').then((response) => {
-      expect(response.statusCode).toBe(200)
-      expect(response.type).toBe('application/json')
-    })
-  })
-
-  test('respond with a 404 code when the testimony is non-existent', async () => {
-    await api.get('/testimonials/noexiste').then((response) => {
-      expect(response.statusCode).toBe(404)
-    })
-  })
-})
-
 describe('POST /testimonials', () => {
   test('respond with 200 when the testimony is created', async () => {
     const data = {
@@ -85,6 +63,28 @@ describe('POST /testimonials', () => {
         expect(response.statusCode).toBe(400)
         expect(response.type).toBe('application/json')
       })
+  })
+})
+
+describe('GET /testimonials', () => {
+  test('respond with a 200 code when it returns a json containing a list of all testimonials', async () => {
+    await api.get('/testimonials').then((response) => {
+      expect(response.statusCode).toBe(200)
+      expect(response.type).toBe('application/json')
+    })
+  })
+
+  test('respond with a 200 code when return a json containing testimony with id', async () => {
+    await api.get(`/testimonials/${id}`).then((response) => {
+      expect(response.statusCode).toBe(200)
+      expect(response.type).toBe('application/json')
+    })
+  })
+
+  test('respond with a 404 code when the testimony is non-existent', async () => {
+    await api.get('/testimonials/noexiste').then((response) => {
+      expect(response.statusCode).toBe(404)
+    })
   })
 })
 
