@@ -59,10 +59,9 @@ const updateUserById = async (req, res) => {
 const deleteUserById = async (req, res) => {
   try {
     const { id } = req.params
-
     // If the user is not admin and is not trying to delete itself,
     // it will be not authorized
-    if (parseInt(id, 10) !== req.user.userData.id && req.user.userData.roleId !== 1) {
+    if (parseInt(id, 10) !== req.user.id && req.user.roleId !== 1) {
       return res.status(401).json({ ok: false, msg: 'Not allowed' })
     }
 
