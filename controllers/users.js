@@ -71,14 +71,13 @@ const deleteUserById = async (req, res) => {
       return res.status(404).json({ ok: false, msg: 'Not found' })
     }
     await userExist.destroy()
-    res.status(200).json({ ok: true, msg: 'User deleted' })
+    return res.status(200).json({ ok: true, msg: 'User deleted' })
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       ok: false,
       msg: error.message
     })
   }
-  return null
 }
 
 module.exports = {
