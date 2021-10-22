@@ -9,13 +9,6 @@ pipelines:
   pull-requests:
     "**":
       - step:
-          name: Test
-          caches:
-            - node
-          script:
-            - npm install
-            - npm run test
-      - step:
           name: Code linting
           script:
             - npm install
