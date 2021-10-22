@@ -88,7 +88,7 @@ const authRegister = async (req, res) => {
       id: savedUser.id
     }
 
-    const token = jwt.sign({ userData }, process.env.JWT_SECRET_KEY, {
+    const token = jwt.sign(userData, process.env.JWT_SECRET_KEY, {
       expiresIn: process.env.EXPIRE_TIMEOUT
     })
     return res.status(200).json({
@@ -101,14 +101,28 @@ const authRegister = async (req, res) => {
   }
 }
 
-const authUserData = (req, res) => {
+const authUserData = async (req, res) => {
+  const { id } = req.user
+  // The raw option is to get a plain json object instead of sequelize entity
+  const user = await User.findByPk(id, { raw: true })
+  const { password, ...safeUser } = user
+
   try {
-    const token = req.headers.authorization.split(' ')[1]
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
-    res.status(200).json(decoded)
-  } catch (e) {
-    res.status(401).json({
-      message: 'No user provided'
+    if (!user) {
+      res.status(404).json({
+        ok: false,
+        msg: 'user not found'
+      })
+    } else {
+      res.status(200).json({
+        ok: true,
+        data: safeUser
+      })
+    }
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: error.message
     })
   }
 }
