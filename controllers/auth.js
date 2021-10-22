@@ -88,7 +88,7 @@ const authRegister = async (req, res) => {
       id: savedUser.id
     }
 
-    const token = jwt.sign({ userData }, process.env.JWT_SECRET_KEY, {
+    const token = jwt.sign(userData, process.env.JWT_SECRET_KEY, {
       expiresIn: process.env.EXPIRE_TIMEOUT
     })
     return res.status(200).json({

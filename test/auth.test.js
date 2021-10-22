@@ -35,7 +35,7 @@ describe('POST /auth/register', () => {
   })
 
   it('should reply with token and non admin user when sending valid data', async () => {
-    const userData = {
+    const data = {
       firstName: 'John',
       lastName: 'Doe',
       email: 'john@doe.com',
@@ -43,7 +43,7 @@ describe('POST /auth/register', () => {
     }
     await api
       .post('/auth/register')
-      .send(userData)
+      .send(data)
       .then((response) => {
         const resData = response.body.data
         token = resData.token
