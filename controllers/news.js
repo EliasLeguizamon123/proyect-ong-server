@@ -21,16 +21,17 @@ const getEntries = async (req, res) => {
 
 const getNewById = async (req, res) => {
   const { id } = req.params
-  try {
-    const entry = await Entry.findByPk(id)
+  const entry = await Entry.findByPk(id)
+
+  if (entry) {
     res.status(200).json({
       ok: true,
       data: entry
     })
-  } catch (error) {
-    res.status(500).json({
+  } else {
+    res.status(404).json({
       ok: false,
-      msg: error.message
+      msg: `An entry with the id ${id} was not found`
     })
   }
 }
@@ -39,18 +40,14 @@ const deleteEntries = async (req, res) => {
   const { id } = req.params
   try {
     const newToDelete = await Entry.findByPk(id)
-    if (newToDelete) {
-      await newToDelete.destroy()
-      res.status(200).json({
-        ok: true
-      })
-    } else {
-      throw new Error('An entry with the id passed by parameter was not found')
-    }
+    await newToDelete.destroy()
+    res.status(200).json({
+      ok: true
+    })
   } catch (error) {
-    res.status(500).json({
+    res.status(404).json({
       ok: false,
-      msg: error.message
+      msg: `New with id ${id} not found`
     })
   }
 }
@@ -79,26 +76,20 @@ const updateEntry = async (req, res) => {
 
   try {
     const newToUpdate = await Entry.findByPk(id)
-    // If the entry exists
-    if (newToUpdate) {
-      // Update it with the given data
-      const newNews = await newToUpdate.update(req.body, {
-        where: {
-          id,
-          type: 'news'
-        }
-      })
-      res.status(200).json({
-        ok: true,
-        data: newNews
-      })
-    } else {
-      throw new Error('An entry with the id passed by parameter was not found')
-    }
+    const newNews = await newToUpdate.update(req.body, {
+      where: {
+        id,
+        type: 'news'
+      }
+    })
+    res.status(200).json({
+      ok: true,
+      data: newNews
+    })
   } catch (error) {
-    res.status(500).json({
+    res.status(404).json({
       ok: false,
-      msg: error.message
+      msg: `An entry with the id ${id} was not found`
     })
   }
 }
