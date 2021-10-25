@@ -5,8 +5,7 @@ const yup = require('yup')
 const editUser = yup.object({
   body: yup.object({
     firstName: yup.string().required(),
-    lastName: yup.string().required(),
-    roleId: yup.number().required()
+    lastName: yup.string().required()
   })
 })
 

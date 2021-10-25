@@ -2,39 +2,30 @@ const { Organization, OrganizationLink } = require('../models/index')
 
 const getPublicData = async (req, res) => {
   const { id } = req.params
-
-  try {
-    const PublicData = await Organization.findAll({
-      where: {
-        id
-      },
-      include: [
-        {
-          model: OrganizationLink
-        }
-      ]
-    })
+  const publicData = await Organization.findOne({
+    where: { id },
+    include: [{ model: OrganizationLink }]
+  })
+  if (publicData) {
     return res.status(200).json({
       ok: true,
-      data: PublicData
-    })
-  } catch (error) {
-    return res.status(500).json({
-      ok: false,
-      msg: error.message
+      data: publicData
     })
   }
+  return res.status(404).json({
+    ok: false,
+    msg: 'organization not found'
+  })
 }
-
 const patchOrganization = async (req, res) => {
   const { id } = req.params
   const organization = await Organization.findOne({ where: { id } })
   if (organization) {
-    await Organization.update(req.body, { where: { id } })
-
+    const updateOrganization = await Organization.update(req.body, { where: { id } })
     res.status(200).json({
       data: {
-        ok: true
+        ok: true,
+        data: updateOrganization
       }
     })
   } else {
@@ -60,17 +51,28 @@ const postNewLink = async (req, res) => {
     })
     res.status(200).json({ data: { ok: true } })
   } catch (error) {
-    res.status(500).json({ data: { ok: false, msg: error.message } })
+    res.status(400).json({ data: { ok: false, msg: error.message } })
   }
 }
 
 const deleteLink = async (req, res) => {
-  const { linkid } = req.params
-  try {
-    await OrganizationLink.destroy({ where: { id: linkid } })
-    res.status(200).json({ data: { ok: true, msg: 'Link deleted' } })
-  } catch (error) {
-    res.status(404).json({ data: { ok: false, msg: `Link with id ${linkid} not found` } })
+  const { id } = req.params
+  const getLink = await OrganizationLink.findByPk(id)
+  if (!getLink) {
+    res.status(404).json({
+      data: {
+        ok: false,
+        msg: `Link with id ${id} not found`
+      }
+    })
+  } else {
+    await OrganizationLink.destroy({ where: { id } })
+    res.status(200).json(
+      {
+        data:
+        { ok: true, msg: 'Link deleted' }
+      }
+    )
   }
 }
 

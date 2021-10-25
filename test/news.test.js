@@ -25,7 +25,8 @@ describe('POST /news', () => {
   }
 
   test('respond with 200 when the new is posted', async () => {
-    await api.post('/news')
+    await api
+      .post('/news')
       .set('Authorization', `Bearer ${token}`)
       .send(data)
       .then((response) => {
@@ -36,7 +37,8 @@ describe('POST /news', () => {
   })
 
   test('respond with 401 code when the user is not authorized to post', async () => {
-    await api.post('/news')
+    await api
+      .post('/news')
       .send(data)
       .then((response) => {
         expect(response.statusCode).toBe(401)
@@ -44,7 +46,8 @@ describe('POST /news', () => {
   })
 
   test('should respond with 3 missing fields when sending empty request', async () => {
-    await api.post('/news')
+    await api
+      .post('/news')
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: '',
@@ -62,39 +65,37 @@ describe('POST /news', () => {
 
 describe('GET /news', () => {
   test('respond with 200 code when it returns a json containing a list of all news', async () => {
-    await api.get('/news')
-      .then((response) => {
-        expect(response.statusCode).toBe(200)
-        expect(response.type).toBe('application/json')
-      })
+    await api.get('/news').then((response) => {
+      expect(response.statusCode).toBe(200)
+      expect(response.type).toBe('application/json')
+    })
   })
 
   test('respond with 200 code when it returns a json containing a news by id', async () => {
     await api.get(`/news/${id}`).then((response) => {
-      expect(response.statusCode)
-        .toBe(200)
+      expect(response.statusCode).toBe(200)
       expect(response.type).toBe('application/json')
     })
   })
 
   test('respond with a 404 code when the news is non-existent', async () => {
-    await api.get('/news/noexists')
-      .then((response) => {
-        expect(response.statusCode).toBe(404)
-      })
+    await api.get('/news/noexists').then((response) => {
+      expect(response.statusCode).toBe(404)
+    })
   })
 })
 
 describe('PUT /news', () => {
-
   const data = {
     name: 'It is a very boring news',
     content: 'Something boring happened',
-    image: 'https://thumbs.dreamstime.com/z/boring-work-young-business-people-looking-bored-sitting-together-table-looking-away-71518165.jpg'
+    image:
+      'https://thumbs.dreamstime.com/z/boring-work-young-business-people-looking-bored-sitting-together-table-looking-away-71518165.jpg'
   }
 
   test('respond with 200 when the new is updated', async () => {
-    await api.put(`/news/${id}`)
+    await api
+      .put(`/news/${id}`)
       .set('Authorization', `Bearer ${token}`)
       .send(data)
       .then((response) => {
@@ -104,7 +105,8 @@ describe('PUT /news', () => {
   })
 
   test('respond with 401 code when the user is not authorized to update', async () => {
-    await api.put(`/news/${id}`)
+    await api
+      .put(`/news/${id}`)
       .send(data)
       .then((response) => {
         expect(response.statusCode).toBe(401)
@@ -112,7 +114,8 @@ describe('PUT /news', () => {
   })
 
   test('should respond with 3 missing fields when sending empty request', async () => {
-    await api.put(`/news/${id}`)
+    await api
+      .put(`/news/${id}`)
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: '',
@@ -130,7 +133,8 @@ describe('PUT /news', () => {
 
 describe('DELETE /news', () => {
   test('respond with 200 when the news is deleted', async () => {
-    await api.delete(`/news/${id}`)
+    await api
+      .delete(`/news/${id}`)
       .set('Authorization', `Bearer ${token}`)
       .then((response) => {
         expect(response.statusCode).toBe(200)
@@ -139,7 +143,8 @@ describe('DELETE /news', () => {
   })
 
   test('respond with a 404 code when the news is non-existent', async () => {
-    await api.delete('/news/noexists')
+    await api
+      .delete('/news/noexists')
       .set('Authorization', `Bearer ${token}`)
       .then((response) => {
         expect(response.statusCode).toBe(404)
@@ -147,9 +152,8 @@ describe('DELETE /news', () => {
   })
 
   test('respond with 401 when the user is not authorized to deleted', async () => {
-    await api.delete(`/news/${id}`)
-      .then((response) => {
-        expect(response.statusCode).toBe(401)
-      })
+    await api.delete(`/news/${id}`).then((response) => {
+      expect(response.statusCode).toBe(401)
+    })
   })
 })

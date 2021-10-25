@@ -7,13 +7,6 @@ const verifyToken = async (req, res, next) => {
     // get the token from the headers:
     const token = req.headers.authorization.split(' ')[1]
 
-    if (!token) {
-      res.status(401).json({
-        ok: false,
-        msg: 'No Auth Provided'
-      })
-    }
-
     // decode the token
     const decoded = jwt.verify(token, JWT_SECRET_KEY)
 
@@ -21,7 +14,7 @@ const verifyToken = async (req, res, next) => {
     req.user = decoded
     next()
   } catch (error) {
-    res.status(500).json({
+    res.status(401).json({
       ok: false,
       msg: error.message
     })

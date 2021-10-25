@@ -39,7 +39,7 @@ exports.add = async (req, res) => {
 
 exports.getAll = async (req, res) => {
   try {
-    const activities = await Activity.findAll({})
+    const activities = await Activity.findAndCountAll({})
 
     // Send success returning the recently created activity
     res.status(200).json({
