@@ -61,7 +61,7 @@ const getTestimony = async (req, res) => {
 
 const getAllTestimonies = async (req, res) => {
   try {
-    const testimonies = await Testimony.findAll({})
+    const testimonies = await Testimony.findAndCountAll({})
     res.status(200).json({ ok: true, data: testimonies })
   } catch (err) {
     res.status(500).json({ ok: false, msg: err.message })
