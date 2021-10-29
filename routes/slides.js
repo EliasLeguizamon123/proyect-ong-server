@@ -3,7 +3,10 @@ const express = require('express')
 const router = express.Router()
 
 const {
-  postSlide, updateSlide, getSlide, getAllSlide
+  postSlide,
+  updateSlide,
+  getSlide,
+  getAllSlide
 } = require('../controllers/slides')
 
 const { validate } = require('../middlewares/validate')
