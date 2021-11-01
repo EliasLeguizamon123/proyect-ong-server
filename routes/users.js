@@ -17,6 +17,6 @@ router.get('/:id', verifyToken, verifyAdmin, getUserById)
 router.patch('/:id', verifyToken, verifyAdmin, validate(editUser), updateUserById)
 
 // DELETE /user/:id
-router.delete('/:id', verifyToken, verifyAdmin, deleteUserById)
+router.delete('/:id', verifyToken, deleteUserById)
 
 module.exports = router
