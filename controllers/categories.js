@@ -8,7 +8,7 @@ Controllers categories
 */
 const getCategories = async (req, res) => {
   try {
-    const categoriesList = await Category.findAll({ attributes: ['id', 'name'] })
+    const categoriesList = await Category.findAndCountAll({})
     res.status(200).json({
       ok: true,
       data: categoriesList
@@ -17,6 +17,23 @@ const getCategories = async (req, res) => {
     res.status(500).json({
       ok: false,
       msg: error.message
+    })
+  }
+}
+
+const getCategoryById = async (req, res) => {
+  const { id } = req.params
+  const category = await Category.findByPk(id)
+
+  if (category) {
+    res.status(200).json({
+      ok: true,
+      data: category
+    })
+  } else {
+    res.status(404).json({
+      ok: false,
+      msg: `A category with the id ${id} was not found`
     })
   }
 }
@@ -85,6 +102,7 @@ const deleteCategory = async (req, res) => {
 
 module.exports = {
   getCategories,
+  getCategoryById,
   postCategory,
   updateCategory,
   deleteCategory

@@ -21,6 +21,18 @@ const verifyToken = async (req, res, next) => {
   }
 }
 
+const verifyAdmin = (req, res, next) => {
+  if (req.user.roleId === 1) {
+    next()
+  } else {
+    res.status(401).json({
+      ok: false,
+      msg: 'Acceso no autorizado.'
+    })
+  }
+}
+
 module.exports = {
-  verifyToken
+  verifyToken,
+  verifyAdmin
 }

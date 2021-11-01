@@ -6,7 +6,7 @@ const { Router } = require('express')
 const { validate } = require('../middlewares/validate')
 const schemas = require('../validation-schemas/activities')
 const activityController = require('../controllers/activities')
-const { verifyToken } = require('../middlewares/verifyAuth')
+const { verifyToken, verifyAdmin } = require('../middlewares/verifyAuth')
 
 /*
 Routes to handle activities
@@ -15,10 +15,10 @@ Routes to handle activities
 const router = Router()
 
 // PUT activities
-router.put('/:id', verifyToken, activityController.update)
+router.put('/:id', verifyToken, verifyAdmin, activityController.update)
 
 // POST /activities
-router.post('/', verifyToken, validate(schemas.add), activityController.add)
+router.post('/', verifyToken, verifyAdmin, validate(schemas.add), activityController.add)
 
 // GET /activities
 router.get('/', activityController.getAll)
@@ -27,6 +27,6 @@ router.get('/', activityController.getAll)
 router.get('/:id', activityController.getOne)
 
 // DELETE /activities/:id
-router.delete('/:id', verifyToken, activityController.delete)
+router.delete('/:id', verifyToken, verifyAdmin, activityController.delete)
 
 module.exports = router

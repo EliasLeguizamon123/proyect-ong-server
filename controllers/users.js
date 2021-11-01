@@ -2,7 +2,7 @@ const { User } = require('../models/index')
 
 const getUsers = async (req, res) => {
   try {
-    const allUsers = await User.findAll()
+    const allUsers = await User.findAndCountAll()
     res.status(200).json({
       ok: true,
       data: allUsers

@@ -15,15 +15,15 @@ const {
   getAllTestimonies
 } = require('../controllers/testimonials')
 const { validate } = require('../middlewares/validate')
-const { verifyToken } = require('../middlewares/verifyAuth')
+const { verifyToken, verifyAdmin } = require('../middlewares/verifyAuth')
 const testimonySchema = require('../validation-schemas/testimony')
 
 // PUT /testimonials
-router.put('/:id', verifyToken, validate(testimonySchema), putTestimony)
+router.put('/:id', verifyToken, verifyAdmin, validate(testimonySchema), putTestimony)
 // POST /testimonials
-router.post('/', verifyToken, validate(testimonySchema), postTestimony)
+router.post('/', verifyToken, verifyAdmin, validate(testimonySchema), postTestimony)
 // DELETE /testimonials
-router.delete('/:id', verifyToken, deleteTestimony)
+router.delete('/:id', verifyToken, verifyAdmin, deleteTestimony)
 // GET /testimonials/:id
 router.get('/:id', getTestimony)
 // GET /testimonials

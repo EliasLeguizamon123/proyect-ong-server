@@ -13,12 +13,12 @@ const {
   getEntries,
   updateEntry
 } = require('../controllers/news')
-const { verifyToken } = require('../middlewares/verifyAuth')
+const { verifyToken, verifyAdmin } = require('../middlewares/verifyAuth')
 
 router.get('/', getEntries)
 router.get('/:id', getNewById)
-router.delete('/:id', verifyToken, deleteEntries)
-router.post('/', verifyToken, validate(schemas.create), postEntries)
-router.put('/:id', verifyToken, validate(schemas.update), updateEntry)
+router.delete('/:id', verifyToken, verifyAdmin, deleteEntries)
+router.post('/', verifyToken, verifyAdmin, validate(schemas.create), postEntries)
+router.put('/:id', verifyToken, verifyAdmin, validate(schemas.update), updateEntry)
 
 module.exports = router

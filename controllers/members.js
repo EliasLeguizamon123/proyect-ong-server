@@ -3,7 +3,7 @@ const { Member } = require('../models/index')
 const membersController = {
   getMembers: async (req, res) => {
     try {
-      const members = await Member.findAll()
+      const members = await Member.findAndCountAll()
       return res.status(200).json({ ok: true, data: members })
     } catch (err) {
       return res.status(500).json({ ok: false, msg: err.message })
@@ -12,7 +12,9 @@ const membersController = {
   createMember: async (req, res) => {
     try {
       const newUser = await Member.create(req.body)
-      return res.status(201).json({ ok: true, msg: `Member ${newUser.name} created successfully`, data: newUser })
+      return res
+        .status(201)
+        .json({ ok: true, msg: `Member ${newUser.name} created successfully`, data: newUser })
     } catch (err) {
       return res.status(500).json({ ok: false, msg: err.message })
     }
@@ -44,8 +46,22 @@ const membersController = {
     }
 
     return res.status(404).json({ ok: false, msg: `Cannot find member with id ${id}` })
+  },
+  getMemberById: async (req, res) => {
+    const { id } = req.params
+    try {
+      const response = await Member.findOne({ where: { id } })
+      res.status(200).json({
+        ok: true,
+        data: response
+      })
+    } catch (error) {
+      res.status(404).json({
+        ok: false,
+        msg: `Cannot find member with id ${id}`
+      })
+    }
   }
-
 }
 
 module.exports = membersController

@@ -8,15 +8,15 @@ const {
   postNewLink,
   deleteLink
 } = require('../controllers/organization')
-const { verifyToken } = require('../middlewares/verifyAuth')
+const { verifyToken, verifyAdmin } = require('../middlewares/verifyAuth')
 
 // Route GET / contacts
 router.get('/:id', getPublicData)
 
-router.patch('/:id', verifyToken, patchOrganization)
+router.patch('/:id', verifyToken, verifyAdmin, patchOrganization)
 
-router.post('/:id/links', verifyToken, postNewLink)
+router.post('/:id/links', verifyToken, verifyAdmin, postNewLink)
 
-router.delete('/:id/links/:linkid', verifyToken, deleteLink)
+router.delete('/:id/links/:linkid', verifyToken, verifyAdmin, deleteLink)
 
 module.exports = router

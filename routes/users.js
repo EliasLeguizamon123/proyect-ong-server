@@ -6,17 +6,17 @@ const {
 } = require('../controllers/users')
 const { validate } = require('../middlewares/validate')
 
-const { verifyToken } = require('../middlewares/verifyAuth')
+const { verifyToken, verifyAdmin } = require('../middlewares/verifyAuth')
 const editUser = require('../validation-schemas/editUser')
 /* GET users listing. */
 router.get('/', getUsers)
 
 /* GET user by id */
-router.get('/:id', getUserById)
+router.get('/:id', verifyToken, verifyAdmin, getUserById)
 
-router.patch('/:id', verifyToken, validate(editUser), updateUserById)
+router.patch('/:id', verifyToken, verifyAdmin, validate(editUser), updateUserById)
 
 // DELETE /user/:id
-router.delete('/:id', verifyToken, deleteUserById)
+router.delete('/:id', verifyToken, verifyAdmin, deleteUserById)
 
 module.exports = router

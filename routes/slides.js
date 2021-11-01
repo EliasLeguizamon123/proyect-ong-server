@@ -6,16 +6,18 @@ const {
   postSlide,
   updateSlide,
   getSlide,
-  getAllSlide
+  getAllSlide,
+  deleteSlide
 } = require('../controllers/slides')
 
 const { validate } = require('../middlewares/validate')
-const { verifyAdmin } = require('../middlewares/verifyAdmin')
+const { verifyToken, verifyAdmin } = require('../middlewares/verifyAuth')
 const slideSchema = require('../validation-schemas/slides')
 
-router.post('/', verifyAdmin, validate(slideSchema), postSlide)
-router.put('/:id', verifyAdmin, validate(slideSchema), updateSlide)
-router.get('/getOne/:id', getSlide)
-router.get('/getAll/:id', getAllSlide)
+router.post('/', verifyToken, verifyAdmin, validate(slideSchema), postSlide)
+router.patch('/:id', verifyToken, verifyAdmin, validate(slideSchema), updateSlide)
+router.get('/:id', getSlide)
+router.get('/', getAllSlide)
+router.delete('/:id', verifyToken, verifyAdmin, deleteSlide)
 
 module.exports = router
