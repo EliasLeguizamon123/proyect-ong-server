@@ -63,11 +63,17 @@ const GENERAL_TEMPLATE = `<!DOCTYPE html>
     </table>
 </html>`
 
-const WELCOME_EMAIL = GENERAL_TEMPLATE.replace('{content}', `<h1 style="text-align: center; font-size: 1.3rem;">Muchas gracias por registrarte, {name}</h1>
-<p style="text-align: center;">Podes acceder a tu perfil desde el siguiente link: <a href="http://somosmas.com.ar/profile">http://somosmas.com.ar/profile</a></p>`)
+const WELCOME_EMAIL = GENERAL_TEMPLATE.replace(
+  '{content}',
+  `<h1 style="text-align: center; font-size: 1.3rem;">Muchas gracias por registrarte, {name}</h1>
+<p style="text-align: center;">Podes regresar al sitio desde el siguiente link: <a href="http://alkemy-ci.s3-website-us-east-1.amazonaws.com/">Volver al sitio</a></p>`
+)
 
-const CONTACT_EMAIL = GENERAL_TEMPLATE.replace('{content}', `<h1 style="text-align: center; font-size: 1.3rem;">Muchas gracias por su consulta, {name}</h1>
-<p style="text-align: center;">Vamos a estar respondiendo a la brevedad a su mensaje</a></p>`)
+const CONTACT_EMAIL = GENERAL_TEMPLATE.replace(
+  '{content}',
+  `<h1 style="text-align: center; font-size: 1.3rem;">Muchas gracias por su consulta, {name}</h1>
+<p style="text-align: center;">Vamos a estar respondiendo a la brevedad a su mensaje</a></p>`
+)
 
 const buildWelcomeEmail = (name) => WELCOME_EMAIL.replace('{name}', name)
 

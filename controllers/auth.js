@@ -4,6 +4,8 @@ Imports
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const { User } = require('../models/index')
+const emailService = require('../services/emailService')
+const { buildWelcomeEmail } = require('../services/emailTemplate')
 
 const { JWT_SECRET_KEY } = process.env
 
@@ -78,6 +80,11 @@ const authRegister = async (req, res) => {
       image:
         'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_960_720.png'
     })
+    await emailService(
+      req.body.email,
+      'Somos Mas: Registro exitoso',
+      buildWelcomeEmail(`${firstName} ${lastName}`)
+    )
     /* jwt token sign and expiration */
     const userData = {
       firstName: savedUser.firstName,
