@@ -5,43 +5,41 @@
   "scripts": {
     "start": "node ./bin/www",
     "start:dev": "nodemon ./bin/www",
-    "lint": "eslint *.js",
-    "lint:fix": "eslint *.js --fix",
-    "test": "jest --verbose --silent --detectOpenHandles"
+    "prod": "pm2 start ./bin/www --name g75-api",
+    "lint:js": "eslint . --ext .js",
+    "lint:js:fix": "npm run lint:js -- --fix",
+    "prettier-format": "npx prettier --config .prettierrc *.js --write",
+    "test": "jest --verbose --silent --detectOpenHandles",
+    "prepare": "husky install"
   },
   "engines": {
     "node": ">=0.14"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "eslint --quiet --fix"
-    ],
-    "*.{json,md,html}": [
-      "prettier --write"
-    ]
-  },
   "dependencies": {
+    "@sendgrid/mail": "^7.4.7",
+    "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "express-validator": "^6.12.2",
     "http-errors": "~1.6.3",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
     "mysql2": "^2.2.3",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "yup": "^0.32.9",
+    "yup-phone": "^1.2.19"
   },
   "devDependencies": {
-    "eslint": "^7.31.0",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
-    "husky": "^7.0.1",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.0",
     "jest": "^27.0.6",
     "lint-staged": "^11.1.1",
     "nodemon": "^2.0.12",
